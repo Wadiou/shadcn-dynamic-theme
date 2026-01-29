@@ -1,0 +1,17 @@
+node_modules
+components
+lib
+.next
+out
+build
+dist
+.DS_Store
+*.log
+.env
+.env.local
+
+# User requested to ignore docs
+docs/
+
+# Generated Registry Artifacts
+public/r

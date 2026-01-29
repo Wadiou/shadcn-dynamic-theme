@@ -1,0 +1,42 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "shadcn-dynamic-theme",
+	"homepage": "https://shadcn-dynamic-theme.vercel.app",
+	"items": [
+		{
+			"name": "color-switcher",
+			"type": "registry:component",
+			"title": "Color Switcher",
+			"description": "A dynamic color switcher component.",
+			"dependencies": ["next-themes", "@radix-ui/react-icons"],
+			"registryDependencies": ["button", "dropdown-menu"],
+			"files": [
+				{
+					"path": "registry/new-york/color-switcher/color-switcher.tsx",
+					"type": "registry:ui",
+					"target": "components/color-switcher.tsx"
+				},
+				{
+					"path": "registry/new-york/color-switcher/color-theme-provider.tsx",
+					"type": "registry:component",
+					"target": "components/color-theme-provider.tsx"
+				},
+				{
+					"path": "registry/new-york/color-switcher/theme-script.tsx",
+					"type": "registry:component",
+					"target": "components/theme-script.tsx"
+				},
+				{
+					"path": "registry/new-york/color-switcher/generate-themes.js",
+					"type": "registry:lib",
+					"target": "scripts/generate-themes.js"
+				},
+				{
+					"path": "registry/new-york/color-switcher/themes.json",
+					"type": "registry:lib",
+					"target": "scripts/themes.json"
+				}
+			]
+		}
+	]
+}
