@@ -2,12 +2,15 @@
 
 A dynamic theme and color switcher for [shadcn/ui](https://ui.shadcn.com), built with `next-themes` and CSS variables.
 
+> **Check out the component in the website:** [shadcn-dynamic-theme.vercel.app](https://shadcn-dynamic-theme.vercel.app)
+
 ## Features
 
 - **Dynamic Color Switching**: Change your app's primary color (and chart/sidebar colors) at runtime.
 - **Configurable**: Pass your own list of themes.
 - **Dark Mode Support**: Seamless integration with `next-themes`.
 - **No Hardcoded Bundles**: You control the CSS and the theme definitions.
+- **Framework Agnostic**: Fully compatible with Next.js (TanStack Start) and Vite.
 
 ## Prerequisites
 
@@ -15,23 +18,40 @@ This component assumes you have a **Shadcn UI** project already set up (specific
 
 ## Installation
 
-Run the following command to add the component and its dependencies to your project:
+Run the following command to add the component and its dependencies to your project.
+
+### Default Installation (Base UI)
+
+Use this if you are using the **Base UI** version of this project (using `render` props).
 
 ```bash
-npx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/r/color-switcher.json
+npx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher.json
 # or
-pnpm dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/r/color-switcher.json
+pnpm dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher.json
 # or
-bunx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/r/color-switcher.json
+bunx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher.json
 # or
-yarn dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/r/color-switcher.json
+yarn dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher.json
+```
+
+### Classic Installation (Radix UI / Standard Shadcn)
+
+Use this if you are using the **Standard Shadcn UI** (Radix UI).
+
+```bash
+npx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher-classic.json
+# or
+pnpm dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher-classic.json
+# or
+bunx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher-classic.json
+# or
+yarn dlx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/color-switcher-classic.json
 ```
 
 This will:
 
 - Install required dependencies.
-- Add `color-switcher.tsx` and `color-theme-provider.tsx` to your components.
-- Add `theme-script.tsx` to your components.
+- Add `base-color-switcher.tsx`, `theme-color-switcher.tsx`, `color-theme-provider.tsx` and `theme-script.tsx` to your components.
 - Add generators (`generate-themes.js` and `themes.json`) to your scripts.
 
 ## Setup & Configuration
@@ -46,8 +66,8 @@ Run it interactively:
 
 ```bash
 node scripts/generate-themes.js
-# or if executable (chmod +x scripts/generate-themes.js)
-./scripts/generate-themes.js
+# or
+bun scripts/generate-themes.js
 ```
 
 ### 2. Advanced Usage (CLI Flags)
@@ -58,8 +78,14 @@ The script supports flags, which is useful for automation or for AI agents.
 # See all options
 node scripts/generate-themes.js --help
 
-# Set default theme to 'blue' and generate only specific auxiliary themes
-node scripts/generate-themes.js --default=blue --themes=orange,green
+# Generate all themes and bases
+node scripts/generate-themes.js --all
+
+# Generate all themes and bases with default theme 'blue' and default base 'zinc'
+node scripts/generate-themes.js --all --default-theme=cyan --default-base=gray
+
+# Set default theme to 'blue' and generate specific themes
+node scripts/generate-themes.js --default-theme=blue --themes=orange,green --default-base=zinc --bases=slate
 ```
 
 ### 3. Add the Provider
@@ -70,7 +96,12 @@ Wrap your application in the `ColorThemeProvider`.
 import "./globals.css";
 import { ColorThemeProvider } from "@/components/color-theme-provider";
 import { ThemeScript } from "@/components/theme-script";
-import { THEMES, DEFAULT_THEME } from "@/lib/themes";
+import {
+	THEMES,
+	DEFAULT_THEME,
+	BASE_COLORS,
+	DEFAULT_BASE_COLOR,
+} from "@/lib/themes";
 
 export default function RootLayout({
 	children,
@@ -89,6 +120,8 @@ export default function RootLayout({
 					enableSystem
 					colorThemes={THEMES}
 					defaultColor={DEFAULT_THEME}
+					baseColors={BASE_COLORS}
+					defaultBaseColor={DEFAULT_BASE_COLOR}
 				>
 					{children}
 				</ColorThemeProvider>
@@ -100,13 +133,19 @@ export default function RootLayout({
 
 ### 4. Use the Component
 
-Place the `ColorSwitcher` anywhere in your UI.
+Place the `ThemeColorSwitcher` and `BaseColorSwitcher` anywhere in your UI.
 
 ```tsx
-import { ColorSwitcher } from "@/components/color-switcher";
+import { ThemeColorSwitcher } from "@/components/theme-color-switcher";
+import { BaseColorSwitcher } from "@/components/base-color-switcher";
 
 export default function Header() {
-	return <ColorSwitcher />;
+	return (
+		<div className="flex gap-2">
+			<ThemeColorSwitcher />
+			<BaseColorSwitcher />
+		</div>
+	);
 }
 ```
 
@@ -118,28 +157,27 @@ If you are contributing to this project, here is how to set up your environment.
 
 You can run the registry server locally to test your changes in another project.
 
-1.  **Build the Registry**:
+1.  **Build and Serve the Registry**:
+
+    This command builds the registry and starts a local Python HTTP server on port 8080.
+    **Note:** You must have `python3` installed.
 
     ```bash
-    npm run registry:build
+    npm run build:local
     # or
-    npm run build
-    ```
-
-    This generates the registry files in `public/r`.
-
-2.  **Start the Local Server**:
-    Serve the `public` directory:
-
-    ```bash
-    cd public
-    python3 -m http.server 8080
+    bun run build:local
     ```
 
     Your registry will be available at `http://localhost:8080`.
 
-3.  **Test in a Target Project**:
+2.  **Test in a Target Project**:
+
     In your target project (e.g., a fresh Next.js app), run:
+
     ```bash
-    npx shadcn@latest add http://localhost:8080/r/color-switcher.json
+    # For Base UI Style
+    npx shadcn@latest add http://localhost:8080/color-switcher.json
+
+    # For Radix UI Style
+    npx shadcn@latest add http://localhost:8080/color-switcher-classic.json
     ```

@@ -1,0 +1,37 @@
+{
+	"name": "color-switcher-new-york",
+	"dependencies": ["next-themes", "lucide-react"],
+	"registryDependencies": ["button", "dropdown-menu"],
+	"files": [
+		{
+			"path": "base-color-switcher.tsx",
+			"type": "registry:component",
+			"target": "components/base-color-switcher.tsx"
+		},
+		{
+			"path": "theme-color-switcher.tsx",
+			"type": "registry:component",
+			"target": "components/theme-color-switcher.tsx"
+		},
+		{
+			"path": "color-theme-provider.tsx",
+			"type": "registry:component",
+			"target": "components/color-theme-provider.tsx"
+		},
+		{
+			"path": "theme-script.tsx",
+			"type": "registry:component",
+			"target": "components/theme-script.tsx"
+		},
+		{
+			"path": "generate-themes.js",
+			"type": "registry:lib",
+			"target": "scripts/generate-themes.js"
+		},
+		{
+			"path": "themes.json",
+			"type": "registry:lib",
+			"target": "scripts/themes.json"
+		}
+	]
+}

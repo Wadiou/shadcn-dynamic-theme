@@ -1,7 +1,4 @@
 docs/
-components/
-lib/
-tests/
 vitest.config.ts
 vitest.setup.ts
 .github/
