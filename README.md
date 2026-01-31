@@ -149,6 +149,41 @@ export default function Header() {
 }
 ```
 
+### 5. DevTools (Optional)
+
+You can install the developer toolbar to easily switch themes and test your integration.
+
+```bash
+# For Base UI Style
+npx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/dev-tools.json
+
+# For Radix UI Style
+npx shadcn@latest add https://shadcn-dynamic-theme.vercel.app/dev-tools-classic.json
+```
+
+Then add it to your `RootLayout` (or any global wrapper):
+
+```tsx
+import { DevTools } from "@/components/dev-tools";
+
+export default function RootLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        // ... (ColorThemeProvider)
+        <ColorThemeProvider ...>
+            {children}
+            <DevTools />
+        </ColorThemeProvider>
+        // ...
+    );
+}
+```
+
+**Note**: The `<DevTools />` component automatically hides itself in production builds.
+
 ## Development
 
 If you are contributing to this project, here is how to set up your environment.

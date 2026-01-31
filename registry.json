@@ -82,6 +82,46 @@
 					"target": "scripts/themes.json"
 				}
 			]
+		},
+		{
+			"name": "dev-tools",
+			"type": "registry:component",
+			"title": "Dev Tools",
+			"description": "A developer toolbar for theme and mode switching. Requires color-switcher to be installed first.",
+			"dependencies": ["next-themes", "lucide-react"],
+			"registryDependencies": ["button", "separator", "dropdown-menu"],
+			"files": [
+				{
+					"path": "registry/common/dev-tools.tsx",
+					"type": "registry:component",
+					"target": "components/dev-tools.tsx"
+				},
+				{
+					"path": "registry/default/mode-toggle.tsx",
+					"type": "registry:component",
+					"target": "components/mode-toggle.tsx"
+				}
+			]
+		},
+		{
+			"name": "dev-tools-classic",
+			"type": "registry:component",
+			"title": "Dev Tools",
+			"description": "A developer toolbar for theme and mode switching. Requires color-switcher-classic to be installed first.",
+			"dependencies": ["next-themes", "lucide-react"],
+			"registryDependencies": ["button", "separator", "dropdown-menu"],
+			"files": [
+				{
+					"path": "registry/common/dev-tools.tsx",
+					"type": "registry:component",
+					"target": "components/dev-tools.tsx"
+				},
+				{
+					"path": "registry/new-york/mode-toggle.tsx",
+					"type": "registry:component",
+					"target": "components/mode-toggle.tsx"
+				}
+			]
 		}
 	]
 }

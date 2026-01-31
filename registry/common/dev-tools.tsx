@@ -17,7 +17,7 @@ export function DevTools() {
     const [showIndicator, setShowIndicator] = useState(false)
     const { setColorTheme, setBaseColor } = useColorTheme()
     const { setTheme } = useTheme()
-    const showDevTools = process.env.NEXT_PUBLIC_SHOW_DEVTOOLS === "true"
+    const isDev = process.env.NODE_ENV !== "production"
 
     useEffect(() => {
         setMounted(true)
@@ -54,7 +54,7 @@ export function DevTools() {
         setTheme("system")
     }
 
-    if (!mounted || !showDevTools) return null
+    if (!mounted || !isDev) return null
 
     return (
         <div className="fixed top-4 right-4 z-50 flex flex-col items-end gap-2 text-foreground">
