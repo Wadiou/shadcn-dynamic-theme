@@ -1,5 +1,8 @@
 # Shadcn Dynamic Theme Switcher
 
+> [!WARNING]  
+> **DEPRECATION NOTICE:** This repository is currently **deprecated** and will be refined and overhauled in a future release. It is maintained here for legacy reference, but expect breaking architectural changes in the next iteration.
+
 A dynamic theme and color switcher for [shadcn/ui](https://ui.shadcn.com), built with `next-themes` and CSS variables.
 
 > **Check out the component in the website:** [shadcn-dynamic-theme.vercel.app](https://shadcn-dynamic-theme.vercel.app)
